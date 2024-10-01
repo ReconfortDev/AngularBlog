@@ -1,14 +1,12 @@
 <div class="max-w-screen min-h-screen flex justify-center items-start">
-  <div class="w-screen container px-[12vw]">
+  <div class="w-screen container px-[14vw]">
     <div class="flex w-full justify-start relative">
       <div class="fixed w-[15vw]">
         <app-navbar/>
       </div>
-      <div class="w-[85vw] ml-[15vw] p-4 border-slate-200 border-r">
-        <h1 class="text-white">Test</h1><br/>
-        <h1 class="text-white">Test</h1><br/>
-        <h1 class="text-white">Test</h1><br/>
-        <h1 class="text-white">Test</h1><br/>
+      <div
+        class="w-[85vw] min-h-screen ml-[15vw] border-slate-200 border-r flex flex-col gap-4 items-start justify-start">
+        <router-outlet></router-outlet>
       </div>
     </div>
   </div>

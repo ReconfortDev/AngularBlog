@@ -17,22 +17,23 @@
 
     <ul class="w-full flex flex-col mt-2">
       <li
+        (click)="scrollTo('home')"
+        routerLink="/home"
         class="hover:bg-slate-200 hover:text-indigo-500 text-slate-600 w-full py-3 px-4 text-sm cursor-pointer">
         Home
       </li>
       <li
+        (click)="scrollTo('news')"
+        routerLink="/home"
         class="hover:bg-slate-200 hover:text-indigo-500 text-slate-600 w-full py-3 px-4 text-sm cursor-pointer">
         Newsletter
-      </li>
-      <li
-        class="border-b border-slate-200 hover:bg-slate-200 hover:text-indigo-500 text-slate-600 w-full py-3 px-4 text-sm cursor-pointer">
-        Social
       </li>
     </ul>
   </div>
 
   <div class="w-full p-4 border-y border-slate-200 mt-4 group flex items-center gap-2">
     <div
+      routerLink="/auth"
       class="w-16 h-16 rounded-full overflow-hidden flex justify-center items-center border-2 cursor-pointer hover:bg-slate-200">
       <span class="material-symbols-outlined text-gray-400 group-hover:text-indigo-500">
         login
