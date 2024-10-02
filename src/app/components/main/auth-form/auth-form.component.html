@@ -1,0 +1,62 @@
+<section id="home" class="w-full flex flex-col justify-start items-start gap-4 p-4 px-8">
+  <h1 class="w-full text-4xl font-light mt-4 text-slate-500 text-wrap pt-0">
+    Welcome 👋  <span class="text-black">Sign in to explore power of authoring</span>
+  </h1>
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="w-full border border-slate-200">
+
+    <!-- Username field (conditionally displayed) -->
+    <div *ngIf="showUsernameField" class="border p-4 border-slate-200 group">
+      <div class="w-full flex justify-between items-center mb-2">
+        <label for="username" class="text-sm group-hover:text-indigo-500 font-medium text-slate-500">Username:</label>
+        <div class="text-red-500 font-medium" *ngIf="formGroup.get('username')?.invalid && (formGroup.get('username')?.touched || formGroup.get('username')?.dirty)">
+          <small *ngIf="formGroup.get('username')?.errors?.['required']">Username is required.</small>
+          <small *ngIf="formGroup.get('username')?.errors?.['minlength']">Username must be at least 3 characters long.</small>
+        </div>
+      </div>
+      <input id="username" class="w-full border border-slate-200 text-sm px-4 py-2 outline-none" formControlName="username">
+    </div>
+
+    <!-- Email field -->
+    <div class="border p-4 border-slate-200 group">
+      <div class="w-full flex justify-between items-center mb-2">
+        <label for="email" class="text-sm group-hover:text-indigo-500 font-medium text-slate-500">Email:</label>
+        <div class="text-red-500 font-medium" *ngIf="formGroup.get('email')?.invalid && (formGroup.get('email')?.touched || formGroup.get('email')?.dirty)">
+          <small *ngIf="formGroup.get('email')?.errors?.['required']">Email is required.</small>
+          <small *ngIf="formGroup.get('email')?.errors?.['email']">Invalid email format.</small>
+        </div>
+      </div>
+      <input id="email" class="w-full border border-slate-200 text-sm px-4 py-2 outline-none" formControlName="email">
+    </div>
+
+    <!-- Password field -->
+    <div class="border p-4 border-slate-200 group">
+      <div class="w-full flex justify-between items-center mb-2">
+        <label for="password" class="group-hover:text-indigo-500 text-sm font-medium text-slate-500">Password:</label>
+        <div class="text-red-500 font-medium" *ngIf="formGroup.get('password')?.invalid && (formGroup.get('password')?.touched || formGroup.get('password')?.dirty)">
+          <small *ngIf="formGroup.get('password')?.errors?.['required']">Password is required.</small>
+          <small *ngIf="formGroup.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</small>
+        </div>
+      </div>
+      <input id="password" type="password" class="w-full border border-slate-200 text-sm px-4 py-2 outline-none" formControlName="password">
+    </div>
+
+    <div class="flex justify-center items-center w-full border border-slate-200 group duration-75">
+      <div
+        class="p-4 border-x border-slate-200 flex items-center gap-3 px-6 group-hover:bg-slate-200 cursor-pointer active:scale-90 active:rounded-full"
+        (click)="loginWithGoogle()"
+      >
+        <img src="/google.png" alt="Google" class="w-4 h-4 rounded-full"/>
+        <p class="text-xs">Signin with google</p>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="w-full justify-between items-center flex ">
+      <button class="bg-slate-200 px-12 py-3 cursor-pointer text-sm hover:bg-indigo-500 hover:text-white" type="submit" [disabled]="formGroup.invalid">
+        {{ buttonText }}
+      </button>
+    </div>
+  </form>
+
+</section>
