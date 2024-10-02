@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgIf } from "@angular/common";
-import { RouterLink } from "@angular/router";
+import {Component, inject, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {NgIf} from "@angular/common";
+import {Firestore} from "@angular/fire/firestore";
+import {addDoc, collection} from "@angular/fire/firestore";
+import {Router, RouterLink} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
+import {User} from "@angular/fire/auth";
 
 @Component({
   selector: 'create-post',
@@ -15,63 +19,60 @@ import { RouterLink } from "@angular/router";
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css']
 })
-export class CreatePostComponent {
+export class CreatePostComponent implements OnInit {
   blogForm: FormGroup;
-  selectedFile: File | null = null;  // Store the selected file
+  firestore: Firestore = inject(Firestore);
+  errorMessage!: string | null
+  currentUserId!: string | undefined
 
-  constructor(private fb: FormBuilder) {
+
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.blogForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
       shortDescription: ['', [Validators.required, Validators.minLength(10)]],
-      imageUrl: ['', [this.urlValidator()]],
+      imageUrl: ['', [Validators.required, Validators.pattern(/^(http|https):\/\/[^ "]+$/)]],
       description: ['', [Validators.required, Validators.minLength(20)]],
     });
   }
 
-  urlValidator() {
-    return (control: any) => {
-      const urlRegex = /^https?:\/\/.+\.(jpg|jpeg|png|gif)$/;
-      if (control.value && !urlRegex.test(control.value)) {
-        return { invalidUrl: true };
+  ngOnInit() {
+    this.authService.user$.subscribe((user: User | null) => {
+      if (user) {
+        this.authService.currentUserSig.set({
+          uuid: user.uid!,
+          email: user.email!,
+          username: user.displayName!,
+        });
+        this.currentUserId = user.uid!;
+      } else {
+        this.authService.currentUserSig.set(null);
+        this.currentUserId = ''; // If nou ser Reset
       }
-      return null;
-    };
+    });
   }
 
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      this.blogForm.get('imageUrl')?.setValue(''); // Clear the image URL if a file is selected
-    } else {
-      this.selectedFile = null;
-    }
+  saveData() {
+    const collectionHelper = collection(this.firestore, 'posts')
+    addDoc(collectionHelper, {
+      'title': this.blogForm.value.title,
+      'shortDescription': this.blogForm.value.shortDescription,
+      'imageUrl': this.blogForm.value.imageUrl,
+      'description': this.blogForm.value.description,
+      'authorId': this.currentUserId,
+      'likes': 0,
+      'share': 0,
+    }).then(() => {
+      this.router.navigateByUrl('/home')
+      this.blogForm.reset();
+    }).catch((err) => {
+      this.errorMessage = err
+    })
   }
 
   onSubmit() {
     if (this.blogForm.invalid) {
       return;
     }
-
-    const formData = new FormData();
-    formData.append('title', this.blogForm.get('title')?.value);
-    formData.append('shortDescription', this.blogForm.get('shortDescription')?.value);
-    formData.append('description', this.blogForm.get('description')?.value);
-
-    if (this.selectedFile) {
-      formData.append('imageUpload', this.selectedFile);  // Add the file if it was uploaded
-    }
-    if (this.blogForm.get('imageUrl')?.value) {
-      formData.append('imageUrl', this.blogForm.get('imageUrl')?.value);  // Add the URL if provided
-    }
-
-    // Log each entry in the FormData
-    console.log('Form Data Submitted:');
-    formData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
-    });
-
-    // Process form submission with the FormData object
-    // Send the formData to your backend or process it further
+    this.saveData()
   }
 }

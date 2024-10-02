@@ -24,12 +24,6 @@
       Please provide either an image file or a valid image URL.
     </div>
 
-    <!-- File Upload -->
-    <input type="file" (change)="onFileSelected($event)" class="bg-transparent border border-dashed rounded-lg p-2" />
-    <div *ngIf="!selectedFile && (blogForm.controls['imageUrl'].invalid && blogForm.controls['imageUrl'].touched)" class="text-red-500 text-xs">
-      Please upload an image or provide a valid image URL.
-    </div>
-
     <!-- Description -->
     <div class="w-full flex flex-col gap-2 justify-start items-start">
       <label class="text-sm text-gray-500">Description</label>

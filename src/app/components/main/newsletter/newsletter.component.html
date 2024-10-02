@@ -4,13 +4,10 @@
     I frequently relay my ideas to my subscriber list and keep them informed about my endeavors—hoping to inspire
     someone. If you're interested in such notifications, put your email below and get them sent straight to your inbox.
   </div>
-  <div class="w-full grid grid-cols-2">
-    <app-card/>
-    <app-card/>
-    <app-card/>
-    <app-card/>
-    <app-card/>
-    <app-card/>
+  <div class="w-full grid grid-cols-1">
+    <ng-container *ngFor="let post of (posts$ | async)">
+      <app-card [post] = "post"/>
+    </ng-container>
   </div>
   <div class="w-full flex justify-between">
     <div

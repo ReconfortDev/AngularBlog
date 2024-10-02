@@ -8,7 +8,7 @@ import {CreatePostComponent} from "./pages/create-post/create-post.component";
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
-  { path: 'post', component: PostComponent },
+  { path: 'article/:id', component: PostComponent },
   { path: 'auth', component: AuthComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'create', component: CreatePostComponent },

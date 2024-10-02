@@ -3,12 +3,12 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "FireBlog": {
+    "amali-blog": {
       "projectType": "application",
       "schematics": {},
       "root": "",
       "sourceRoot": "src",
-      "prefi  x": "app",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
@@ -59,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "FireBlog:build:production"
+              "buildTarget": "amali-blog:build:production"
             },
             "development": {
-              "buildTarget": "FireBlog:build:development"
+              "buildTarget": "amali-blog:build:development"
             }
           },
           "defaultConfiguration": "development"
