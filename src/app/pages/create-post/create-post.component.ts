@@ -39,7 +39,7 @@ export class CreatePostComponent implements OnInit {
     this.authService.user$.subscribe((user: User | null) => {
       if (user) {
         this.authService.currentUserSig.set({
-          uuid: user.uid!,
+          uid: user.uid!,
           email: user.email!,
           username: user.displayName!,
         });

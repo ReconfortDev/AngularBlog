@@ -6,5 +6,7 @@ export interface Post {
   description: string;
   authorId: string;
   likes: number;
+  liked: boolean,
   share: number;
+  likedBy: string[];
 }

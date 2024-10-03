@@ -20,7 +20,7 @@
     <div class="flex gap-1 items-center">
       <p class="text-xs text-slate-400"><b>32</b> comments</p>
       <p class="text-xs text-slate-400"><b>{{ post.share }}</b> Shares</p>
-      <p class="text-xs text-slate-400" (click)="likePost(post.likes)"><b>{{ post.likes }}</b> Likes</p>
+      <p class="text-xs text-slate-400"><b>{{ post.likes }}</b> Likes</p>
     </div>
   </div>
   <p class="p-4 py-3 border-b text-lg">
@@ -31,11 +31,12 @@
   </article>
   <div class="grid grid-cols-3 w-full border border-t-transparent -mt-[1px]">
     <button
+      (click)="toggleLike()"
       class="text-xs px-4 py-2 text-slate-600 hover:bg-slate-100 flex justify-center gap-2 items-center group active:rounded-full active:scale-90">
     <span class=" text-sm group-hover:text-indigo-500 material-symbols-outlined">
       favorite
     </span>
-      Like
+      <b>{{ post.likes }}</b> {{ post.liked ? 'Liked' : 'Likes' }}
     </button>
     <button
       class="text-xs px-4 py-2 text-slate-600 border-x border-slate-200 hover:bg-slate-100 flex justify-center gap-2 items-center group active:rounded-full active:scale-90">
@@ -45,11 +46,12 @@
       Comment
     </button>
     <button
+      (click)="sharingPost(post.share)"
       class="text-xs px-4 py-2 text-slate-600 hover:bg-slate-100 flex justify-center gap-2 items-center group active:rounded-full active:scale-90">
     <span class="scale-75 group-hover:text-indigo-500 material-symbols-outlined">
       send
     </span>
-      Share
+      <b>{{ post.share }}</b> Share
     </button>
   </div>
   <div class="w-full border-b border-slate-200 p-4">

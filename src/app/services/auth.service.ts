@@ -2,12 +2,12 @@ import {inject, Injectable, signal} from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
-  GoogleAuthProvider,
+  GoogleAuthProvider, onAuthStateChanged,
   signInWithEmailAndPassword, signInWithPopup, signOut,
-  updateProfile,
+  updateProfile, User,
   user
 } from "@angular/fire/auth";
-import {from, Observable} from "rxjs";
+import {from, map, Observable} from "rxjs";
 import {UserInterface} from "../models/user.interface";
 
 @Injectable({
@@ -17,6 +17,7 @@ export class AuthService {
   firebaseAuth = inject(Auth)
   user$ = user(this.firebaseAuth);
   currentUserSig = signal<UserInterface | null | undefined>(undefined);
+  currentUserId! :string | null
 
   register(email: string, username: string, password: string): Observable<void> {
     const promise = createUserWithEmailAndPassword(
@@ -51,5 +52,18 @@ export class AuthService {
       const googleProvider = new GoogleAuthProvider();
       const promise = signInWithPopup(this.firebaseAuth, googleProvider).then(() => {})
       return from(promise);
+  }
+
+  getCurrentUserId(): Observable<string | null> {
+    return this.user$.pipe(
+      map((user: UserInterface | null) => {
+        if (user) {
+          this.currentUserId = user.uid!;
+          return this.currentUserId;
+        }
+        this.currentUserId = null; // Reset if no user
+        return null;
+      })
+    );
   }
 }
