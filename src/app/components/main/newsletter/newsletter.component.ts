@@ -3,7 +3,7 @@ import {CardComponent} from "../../card/card.component";
 import {Observable} from "rxjs";
 import {collection, collectionData, Firestore} from "@angular/fire/firestore";
 import {CommonModule} from "@angular/common";
-import {Post} from "../../../models/post";
+import {Comments, Post} from "../../../models/post";
 
 @Component({
   selector: 'app-newsletter',

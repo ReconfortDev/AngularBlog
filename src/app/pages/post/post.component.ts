@@ -4,11 +4,13 @@ import {ActivatedRoute} from "@angular/router";
 import {Post} from "../../models/post";
 import {CommonModule} from "@angular/common";
 import {AuthService} from "../../services/auth.service";
+import {CommentsComponent} from "../../components/main/comments/comments.component";
+import {TimeAgoPipe} from "../../helpers/time-ago.pipe";
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CommentsComponent, TimeAgoPipe],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
@@ -63,6 +65,15 @@ export class PostComponent implements OnInit {
     return 'Unknown Author';
   }
 
+  splitTitle(title: string): { part1: string; part2: string } {
+    const words = title.split(' ');
+    const midIndex = Math.ceil(words.length / 2);
+    const part1 = words.slice(0, midIndex).join(' ');
+    const part2 = words.slice(midIndex).join(' ');
+
+    return { part1, part2 };
+  }
+
   async toggleLike() {
     if (!this.currentUserId) return; // Ensure the user is logged in
 
@@ -105,7 +116,7 @@ export class PostComponent implements OnInit {
   }
 
   getPostUrl(): string {
-    return `http://localhost:4200/article/${this.postId}`; // Replace with your actual URL format
+    return `https://amali-blog.web.app/article/${this.postId}`; // Replace with your actual URL format
   }
 
 

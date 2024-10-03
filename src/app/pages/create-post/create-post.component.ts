@@ -26,8 +26,8 @@ export class CreatePostComponent implements OnInit {
   currentUserId!: string | undefined
 
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
-    this.blogForm = this.fb.group({
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
+    this.blogForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
       shortDescription: ['', [Validators.required, Validators.minLength(10)]],
       imageUrl: ['', [Validators.required, Validators.pattern(/^(http|https):\/\/[^ "]+$/)]],
@@ -61,6 +61,7 @@ export class CreatePostComponent implements OnInit {
       'authorId': this.currentUserId,
       'likes': 0,
       'share': 0,
+      'datePosted': Date.now()
     }).then(() => {
       this.router.navigateByUrl('/home')
       this.blogForm.reset();
