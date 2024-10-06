@@ -8,12 +8,15 @@ import {
   user
 } from "@angular/fire/auth";
 import {from, map, Observable} from "rxjs";
-import {UserInterface} from "../models/user.interface";
+import {UserInterface} from "../../models/user.interface";
+import { collection } from 'firebase/firestore';
+import {Firestore, getDocs} from "@angular/fire/firestore";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  firestore = inject(Firestore);
   firebaseAuth = inject(Auth)
   user$ = user(this.firebaseAuth);
   currentUserSig = signal<UserInterface | null | undefined>(undefined);

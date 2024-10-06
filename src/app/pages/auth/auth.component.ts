@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import {AuthService} from "../../services/auth.service";
+import {AuthService} from "../../services/auth/auth.service";
 import {Router, RouterLink} from "@angular/router";
 import {NewsletterComponent} from "../../components/main/newsletter/newsletter.component";
 import {CardComponent} from "../../components/card/card.component";

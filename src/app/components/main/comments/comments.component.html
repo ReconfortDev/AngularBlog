@@ -6,9 +6,9 @@
       class="w-full h-full object-cover" />
   </div>
   <div class="w-full p-4 border border-slate-300 flex flex-col justify-start items-start gap-2 bg-slate-100">
-    <h2 class="text-slate-900 text-sm font-medium">{{ comment.userId }}</h2>
+    <h2 class="text-slate-900 text-sm font-medium">{{ comment.username }}</h2>
     <article class="text-xs">{{ comment.content?.comment }}</article>
-    <article class="text-xs px-12 py-2 border border-slate-50">{{ comment.like }} Likes</article>
+    <article class="text-xs py-2">{{ comment.createdDate | timeAgo }}</article>
   </div>
 </div>
 

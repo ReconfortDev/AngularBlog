@@ -5,6 +5,7 @@ export interface Post {
   imageUrl: string;
   description: string;
   authorId: string;
+  authorName: string;
   likes: number;
   liked: boolean,
   share: number;
@@ -14,8 +15,9 @@ export interface Post {
 
 export interface Comments {
   postId: string;
+  username: string;
   userId: string;
   content?: { comment: string };
   like: number;
-  createdDate: Date;
+  createdDate: number;
 }

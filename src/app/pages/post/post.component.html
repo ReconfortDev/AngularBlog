@@ -8,18 +8,37 @@
       [src]="post.imageUrl"
       alt="Image"
       class="w-full h-full object-cover"/>
-    <div
-      class="bg-white border border-slate-300 text-slate-600 text-xs absolute z-10 bottom-0 px-4 py-2 m-4 mb-8 flex gap-2 items-center">
-      @if (post.liked && post.liked) {
-        <span class=" text-sm group-hover:text-indigo-500 material-symbols-outlined">
-          favorite
+    <div class="w-full absolute z-10 bottom-0 px-4 pr-12 mb-8 flex justify-between">
+      <div
+        class="bg-white border border-slate-300 text-slate-600 text-xs px-4 py-2 flex gap-2 items-center">
+          <span class="text-sm group-hover:text-indigo-500 material-icons text-indigo-500">
+            favorite_border
         </span>
-      } @else {
-        <span class=" text-sm group-hover:text-indigo-500 material-icons text-indigo-500">
-          favorite
+        <p>{{ post.likes }}</p>
+      </div>
+
+
+      @if (showAdminAction) {
+        <div class="flex gap-2 items-center">
+          <div
+            (click)="editPost()"
+            class="bg-white border border-slate-300 cursor-pointer text-slate-600 text-xs px-4 py-2 flex gap-2 items-center">
+          <span class=" text-sm group-hover:text-indigo-500 material-symbols-outlined">
+          edit
         </span>
+            <p>Edit</p>
+          </div>
+
+          <div
+            (click)="deletePost()"
+            class="bg-white border border-slate-300 cursor-pointer text-slate-600 text-xs px-4 py-2 flex gap-2 items-center">
+          <span class=" text-sm group-hover:text-indigo-500 material-symbols-outlined">
+          delete
+        </span>
+            <p>Delete</p>
+          </div>
+        </div>
       }
-      <p>{{ post.likes }}</p>
     </div>
   </div>
   <h1 class="p-4 w-full text-4xl font-light text-slate-500 text-wrap border-b border-200">
@@ -28,7 +47,11 @@
   </h1>
 
   <div class="p-4 py-3 border-b text-xs flex justify-between">
-    <p>Author {{ getFormattedAuthorId() }}</p>
+    <p>Author @if (post.authorName) {
+      <b>{{ post.authorName }} </b>
+    } @else {
+      <b>Anonymous</b>
+    }</p>
     <div class="flex gap-1 items-center">
       <p class="text-xs text-slate-400"><b> {{ post.datePosted | timeAgo }}</b> comments</p>
       <p class="text-xs text-slate-400"><b>{{ post.share }}</b> Shares</p>
@@ -45,17 +68,12 @@
     <button
       (click)="toggleLike()"
       class="text-xs px-4 py-2 text-slate-600 hover:bg-slate-100 flex justify-center gap-2 items-center group active:rounded-full active:scale-90">
-      @if (post.liked) {
-        <span class=" text-sm group-hover:text-indigo-500 material-symbols-outlined">
-          favorite
+        <span class="text-sm group-hover:text-indigo-500 material-icons text-indigo-500">
+            favorite_border
         </span>
-      } @else {
-        <span class=" text-sm group-hover:text-indigo-500 material-icons text-indigo-500">
-          favorite
-        </span>
-      }
-      <b>{{ post.likes }}</b> {{ post.liked ? 'Like' : 'Liked' }}
+      <b>{{ post.likes }}</b> Like
     </button>
+
     <button
       class="text-xs px-4 py-2 text-slate-600 border-x border-slate-200 hover:bg-slate-100 flex justify-center gap-2 items-center group active:rounded-full active:scale-90">
     <span class="scale-75 group-hover:text-indigo-500 material-symbols-outlined">

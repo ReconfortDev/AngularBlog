@@ -1,7 +1,7 @@
 <div
-  class="w-full p-4 border border-slate-200 hover:bg-slate-50 flex gap-4 justify-start cursor-pointer text-sm group">
-  <div [routerLink]="['/article', post.id]"
-       class="w-full h-56 border-2 border-slate-100 group-hover:border-white shadow relative overflow-hidden">
+  [routerLink]="['/article', post.id]"
+  class="w-full p-4 border border-slate-200 hover:bg-slate-50 flex flex-col md:flex-row gap-4 justify-start cursor-pointer text-sm group">
+  <div class="w-full h-56 border-2 border-slate-100 group-hover:border-white shadow relative overflow-hidden">
     <img
       [src]="post.imageUrl"
       alt="" class="w-full h-full object-cover"
@@ -16,8 +16,8 @@
   </div>
   <div class="w-full flex flex-col justify-between items-start gap-2">
     <div>
-      <h2 [routerLink]="['/article', post.id]" class=" text-black font-medium">{{ post.title }}</h2>
-      <h2 class=" text-slate-500 mt-1 line-clamp-2">{{ post.shortDescription }}</h2>
+      <h2 class=" text-black font-medium">{{ post.title }}</h2>
+      <h2 class=" text-slate-500 mt-1 line-clamp-6">{{ post.shortDescription }}</h2>
     </div>
     <div class="flex items-center gap- w-full justify-between mt-1">
       <div class="flex gap-[1px] items-center text-slate-600 text-xs">

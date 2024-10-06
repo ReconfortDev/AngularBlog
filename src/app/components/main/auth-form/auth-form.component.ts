@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {NgIf} from "@angular/common";
-import {AuthService} from "../../../services/auth.service";
+import {AuthService} from "../../../services/auth/auth.service";
 import {Router} from "@angular/router";
 
 @Component({

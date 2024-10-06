@@ -1,28 +1,29 @@
-<div class="w-full h-screen flex flex-col justify-between items-start border-x border-slate-200">
-  <div class="w-full flex flex-col">
-    <div class="p-4 border-b border-slate-200 group ">
+<div
+  class="w-full h-auto md:h-screen flex flex-row md:flex-col justify-between items-start border-x border-slate-200 bg-white/60 backdrop-blur">
+  <div class="w-full flex flex-row md:flex-col items-center md:items-start">
+    <div class="p-4 md:border-b border-slate-200 flex flex-row items-center gap-2 group">
       <div
-        class="w-16 h-16 rounded-full overflow-hidden flex justify-center items-center border-2 cursor-pointer hover:bg-slate-200"
-        routerLink="/home">
+        class="w-16 h-16 rounded-full overflow-hidden flex flex-row md:flex-col justify-center items-center border-2 cursor-pointer hover:bg-slate-200"
+        routerLink="/profile">
         <img
           src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZhY2V8ZW58MHx8MHx8fDA%3D"
           alt="Logo"
           class="w-full h-full object-cover group-hover:hidden"/>
         <span class="material-symbols-outlined text-gray-400 hidden group-hover:block group-hover:text-indigo-500">
-        storefront
+        person
       </span>
       </div>
-      @if (authService.currentUserSig()) {
-        <p>👋{{ authService.currentUserSig()?.username }}</p>
-        <h3 class="text-sm font-light">User</h3>
-      }
-      @if (authService.currentUserSig() === null) {
-        <h2 class="text-sm font-medium mt-2">John Doe</h2>
-        <h3 class="text-sm font-light">Guest</h3>
-      }
+      <div class="flex flex-col items-start">
+        @if (authService.currentUserSig()) {
+          <p class="font-medium">👋{{ getFirstUsername() }}</p>
+        }
+        @if (authService.currentUserSig() === null) {
+          <h2 class="text-sm font-medium mt-2">Hey there</h2>
+        }
+      </div>
     </div>
 
-    <ul class="w-full flex flex-col mt-2">
+    <ul class="w-full hidden md:flex flex-row md:flex-col mt-2">
       <li
         (click)="scrollTo('home')"
         routerLink="/home"
@@ -49,7 +50,7 @@
   </div>
 
   @if (authService.currentUserSig() == null) {
-    <div class="w-full p-4 border-y border-slate-200 mt-4 group flex items-center gap-2">
+    <div class="w-full p-4 border-y border-slate-200 mt-4 group hidden md:flex items-center gap-2">
       <div
         routerLink="/auth"
         class="w-8 md:w-12 h-8 md:h-12 rounded-full overflow-hidden flex justify-center items-center border-2 cursor-pointer hover:bg-slate-200">
@@ -61,11 +62,11 @@
     </div>
   }
   @if (authService.currentUserSig()) {
-    <div class="w-full p-4 border-y border-slate-200 mt-4 group flex items-center gap-2">
+    <div class="md:w-full p-4 border-y border-slate-200 mt-4 group hidden md:flex flex-row items-center gap-2">
       <div
         (click)="logout()"
         class="w-12 h-12 rounded-full overflow-hidden flex justify-center items-center border-2 cursor-pointer hover:bg-slate-200">
-      <span class="material-symbols-outlined rotate-180 text-red-300 group-hover:text-indigo-500">
+      <span class="material-symbols-outlined rotate-0 md:rotate-180 text-red-300 group-hover:text-indigo-500">
         logout
       </span>
       </div>
@@ -74,4 +75,18 @@
       </div>
     </div>
   }
+
+  <div class="md:w-full p-4 mt-4 group flex md:hidden flex-row md:flex-col items-center gap-2"
+       (click)="toggleHamburger()">
+    <div
+      class="w-12 h-12 rounded-full overflow-hidden flex justify-center items-center border-2 cursor-pointer hover:bg-slate-200">
+      <span class="material-symbols-outlined rotate-0 md:rotate-180 text-indigo-400 group-hover:text-indigo-500">
+        menu
+      </span>
+    </div>
+  </div>
 </div>
+
+@if (isHamburgerActive) {
+  <app-hamburger (logout)="logout()" (toggleBurger)="toggleHamburger()"/>
+}

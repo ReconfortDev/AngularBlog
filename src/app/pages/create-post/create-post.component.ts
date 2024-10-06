@@ -4,7 +4,7 @@ import {NgIf} from "@angular/common";
 import {Firestore} from "@angular/fire/firestore";
 import {addDoc, collection} from "@angular/fire/firestore";
 import {Router, RouterLink} from "@angular/router";
-import {AuthService} from "../../services/auth.service";
+import {AuthService} from "../../services/auth/auth.service";
 import {User} from "@angular/fire/auth";
 
 @Component({
@@ -24,6 +24,7 @@ export class CreatePostComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
   errorMessage!: string | null
   currentUserId!: string | undefined
+  currentUserName!: string | null
 
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
@@ -44,6 +45,7 @@ export class CreatePostComponent implements OnInit {
           username: user.displayName!,
         });
         this.currentUserId = user.uid!;
+        this.currentUserName = user.displayName!;
       } else {
         this.authService.currentUserSig.set(null);
         this.currentUserId = ''; // If nou ser Reset
@@ -59,6 +61,7 @@ export class CreatePostComponent implements OnInit {
       'imageUrl': this.blogForm.value.imageUrl,
       'description': this.blogForm.value.description,
       'authorId': this.currentUserId,
+      'authorName': this.currentUserName,
       'likes': 0,
       'share': 0,
       'datePosted': Date.now()
