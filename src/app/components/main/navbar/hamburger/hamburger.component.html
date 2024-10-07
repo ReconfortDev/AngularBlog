@@ -4,8 +4,12 @@
       Home
     </li>
     @if (authService.currentUserSig()) {
-      <li class="w-full p-4 border -mt-[1px] hover:bg-slate-100 cursor-pointer" routerLink="/create"
-          (click)="toggleBurger.emit()">Write blog
+      <li class="w-full p-4 border -mt-[1px] hover:bg-slate-100 cursor-pointer flex items-center gap-2" routerLink="/create"
+          (click)="toggleBurger.emit()">
+        <span class=" text-lg material-symbols-outlined">
+            edit_document
+          </span>
+        Write blog
       </li>
     }
     @if (authService.currentUserSig() == null) {

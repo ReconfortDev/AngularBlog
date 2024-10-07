@@ -8,11 +8,12 @@ import { CommentsComponent } from '../../components/main/comments/comments.compo
 import { TimeAgoPipe } from '../../helpers/time-ago.pipe';
 import { User } from '@angular/fire/auth';
 import { PostService } from '../../services/post/post.service';
+import {SubscribeComponent} from "../../components/main/subscribe/subscribe/subscribe.component";
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [CommonModule, CommentsComponent, TimeAgoPipe],
+  imports: [CommonModule, CommentsComponent, TimeAgoPipe, SubscribeComponent],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css'],
 })
@@ -22,6 +23,7 @@ export class PostComponent implements OnInit {
   currentUserId!: string | null;
   isShareDisabled: boolean = false;
   showAdminAction = false;
+  message!: string
 
   constructor(
     private route: ActivatedRoute,
@@ -121,7 +123,6 @@ export class PostComponent implements OnInit {
         likedBy: likedBy,
       })
         .then(() => {
-          console.log(hasLiked ? 'Like removed' : 'Post liked');
           this.post.likes = likes; // Update locally for instant feedback
           this.post.likedBy = likedBy; // Update the likedBy list locally
         })
@@ -138,7 +139,7 @@ export class PostComponent implements OnInit {
 
   async deletePost() {
     if (this.currentUserId !== this.post.authorId) {
-      console.warn('You are not authorized to delete this post.');
+      this.message = "You are not authorized"
       return;
     }
 
@@ -155,7 +156,6 @@ export class PostComponent implements OnInit {
 
   sharingPost(currentShareNumber: number) {
     if (this.isShareDisabled) {
-      console.log('Share button is temporarily disabled.');
       return; // Exit if the button is disabled
     }
 
@@ -169,8 +169,6 @@ export class PostComponent implements OnInit {
       share: currentShareNumber + 1,
     })
       .then(() => {
-        console.log('Shares updated successfully');
-
         // Update local share count for instant feedback
         this.post.share = currentShareNumber + 1;
 
@@ -179,19 +177,23 @@ export class PostComponent implements OnInit {
         navigator.clipboard
           .writeText(postUrl)
           .then(() => {
-            console.log('Post URL copied to clipboard:', postUrl);
+            this.message = "Post URL copied to clipboard"; // Display success message
 
             // Re-enable the share button after 2 minutes
             setTimeout(() => {
               this.isShareDisabled = false; // Re-enable the button after 2 minutes
+              this.message = ''; // Clear the message after 2 minutes
             }, 120000); // 120000 milliseconds = 2 minutes
           })
           .catch((err) => {
             console.error('Could not copy text: ', err);
+            this.message = 'Error copying URL'; // Display error message
           });
       })
       .catch((error) => {
         console.error('Error updating shares: ', error);
+        this.message = 'Error sharing post'; // Display error message
       });
   }
+
 }

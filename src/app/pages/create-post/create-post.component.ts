@@ -6,6 +6,7 @@ import {addDoc, collection} from "@angular/fire/firestore";
 import {Router, RouterLink} from "@angular/router";
 import {AuthService} from "../../services/auth/auth.service";
 import {User} from "@angular/fire/auth";
+import {SubscribeComponent} from "../../components/main/subscribe/subscribe/subscribe.component";
 
 @Component({
   selector: 'create-post',
@@ -14,7 +15,8 @@ import {User} from "@angular/fire/auth";
     FormsModule,
     NgIf,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    SubscribeComponent
   ],
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css']

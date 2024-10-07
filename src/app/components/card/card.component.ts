@@ -25,7 +25,6 @@ export class CardComponent {
   firestore: Firestore = inject(Firestore);
 
   constructor() {
-    console.log("postId")
     const commentCollection = collection(this.firestore, 'comments');
     this.comments$ = collectionData(commentCollection, { idField: 'id' }).pipe(
       map((comments :Comments[]) => comments.filter(comment => comment.postId === this.post.id))

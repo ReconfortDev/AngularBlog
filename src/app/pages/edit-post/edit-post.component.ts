@@ -7,13 +7,15 @@ import { Post } from '../../models/post';
 import {UserInterface} from "../../models/user.interface";
 import {User} from "@angular/fire/auth";
 import {NgIf} from "@angular/common";
+import {SubscribeComponent} from "../../components/main/subscribe/subscribe/subscribe.component";
 
 @Component({
   selector: 'app-edit-post',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    SubscribeComponent
   ],
   templateUrl: './edit-post.component.html',
   styleUrl: './edit-post.component.css'

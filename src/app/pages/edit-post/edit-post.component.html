@@ -1,9 +1,5 @@
 <section id="edit-post" class="w-full min-h-screen bg-slate-50 flex flex-col items-start gap-3 p-4">
   <h3 class="text-sm text-indigo-500 font-medium">Edit your blog post</h3>
-  <div class="w-[96%] border border-slate-200 rounded-2xl text-sm text-slate-600 m-4 p-4">
-    I frequently relay my ideas to my subscriber list and keep them informed about my endeavors—hoping to inspire
-    someone. If you're interested in such notifications, put your email below and get them sent straight to your inbox.
-  </div>
 
   <form [formGroup]="blogForm" (ngSubmit)="onSubmit()" class="w-full p-4 border border-slate-200 flex flex-col gap-4">
 
@@ -41,4 +37,5 @@
   <div *ngIf="errorMessage" class="text-red-500 text-xs">
     {{ errorMessage }}
   </div>
+  <app-subscribe/>
 </section>

@@ -1,8 +1,4 @@
 <div class="w-full border border-slate-200 pb-4">
-  <div class="w-[96%] border border-slate-200 rounded-2xl text-sm text-slate-600 m-4 p-4">
-    I frequently relay my ideas to my subscriber list and keep them informed about my endeavors—hoping to inspire
-    someone. If you're interested in such notifications, put your email below and get them sent straight to your inbox.
-  </div>
   <div class="w-full h-[40vh] p-4 border-y border-slate-200 relative">
     <img
       [src]="post.imageUrl"
@@ -96,4 +92,8 @@
       <app-comments [currentUserId]="currentUserId" [postId]="postId"/>
     </div>
   </div>
+  <div *ngIf="message" class="p-4 bg-green-100 text-green-800 border border-green-200 rounded mb-4">
+    {{ message }}
+  </div>
+  <app-subscribe/>
 </div>

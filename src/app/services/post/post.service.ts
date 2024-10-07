@@ -17,7 +17,6 @@ export class PostService {
     try {
       const postDocRef = doc(this.firestore, `posts/${postId}`);
       await deleteDoc(postDocRef);
-      console.log('Post deleted successfully');
     } catch (error) {
       console.error('Error deleting post: ', error);
     }
