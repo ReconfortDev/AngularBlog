@@ -1,27 +1,61 @@
-# FireBlog
+# Angular Standalone Blog App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+This project is an Angular standalone blog application with Firebase integration for authentication and Firestore for storing posts. The app allows users to register, log in, create, edit, and delete blog posts, as well as view profiles.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Authentication:** Users can sign up, log in, and log out using email/password or Google sign-in.
+- **Post Management:** Users can create, edit, and delete blog posts.
+- **User Profile:** Each user has a profile page.
+- **Route Guards:**
+  - Authenticated users are restricted from accessing the login and register pages.
+  - Unauthenticated users are restricted from accessing protected pages like profile, create post, and edit post.
 
-## Code scaffolding
+## Tech Stack
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+ Live link: https://amali-blog.web.app
 
-## Build
+## Tech Stack
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Angular** (Standalone Components)
+- **Firebase** (Authentication and Firestore)
+- **RxJS** (Reactive programming)
+- **TailwindCSS** (Styling)
+- **Angular Router and Firebase Route** (Routing with Guards)
 
-## Running unit tests
+## Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Clone the repository:
 
-## Running end-to-end tests
+   ```bash
+   git clone git@github.com:ReconfortDev/AngularBlog.git
+   cd AngularBlog
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+2. Install dependencies:
 
-## Further help
+   ```bash
+   npm install
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+3. Run the app:
+
+   ```bash
+   ng serve
+   ```
+
+4. Access the app in your browser at `http://localhost:4200`.
+
+## Usage
+
+- **Home Page:** View all blog posts.
+- **Authentication:** Sign up or log in to create posts.
+- **Create Post:** After logging in, create new posts.
+- **Edit Post:** Edit your existing posts.
+- **Profile:** View your profile details.
+- **Logout:** Log out of your account.
+
+## Guards
+
+- **AuthGuard:** Protects routes like `create post`, `edit post`, and `profile` for logged-in users only.
+- **NoAuthGuard:** Prevents logged-in users from accessing login and register pages.
