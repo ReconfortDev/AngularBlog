@@ -1,0 +1,8 @@
+<div class="w-screen p-4 flex flex-col gap-4">
+  <h1 class="text-indigo-500 font-medium text-lg">Profile</h1>
+  <div class="w-full flex flex-col">
+    <p *ngIf="user" class="w-full border border-slate-200 text-start text-sm p-8"><b>Username:</b> {{ user.displayName }}</p>
+    <p *ngIf="user" class="w-full border border-slate-200 text-start text-sm p-8 -mt-[1px]"><b>Email:</b> {{ user.email }}</p>
+  </div>
+  <p *ngIf="!user" class="w-full border border-slate-200 text-center text-sm p-8 ">No user is currently logged in.</p>
+</div>

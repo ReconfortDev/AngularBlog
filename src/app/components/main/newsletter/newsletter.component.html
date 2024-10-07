@@ -1,28 +1,29 @@
-<section id="news" class="w-full flex justify-start items-start flex-col gap-3 pt-4 border-y border-slate-200 p-4">
+<section
+  id="news"
+  class="w-full flex justify-start items-start flex-col gap-3 pt-4 border-y border-slate-200 p-4"
+>
   <h3 class="text-indigo-500 font-medium">Newsletter</h3>
-  <div class="w-full border border-slate-200 rounded-2xl text-sm text-slate-600 p-4">
-    I frequently relay my ideas to my subscriber list and keep them informed about my endeavors—hoping to inspire
-    someone. If you're interested in such notifications, put your email below and get them sent straight to your inbox.
+  <div class="w-full grid grid-cols-1">
+    <!-- If no posts are available -->
+    <ng-container *ngIf="!(posts$ | async)?.length">
+      <p class="w-full p-8 text-center">
+        No posts available at the moment. Stay tuned!
+      </p>
+    </ng-container>
+
+    <!-- Loading -->
+    <ng-container *ngIf="(posts$ | async) === null">
+      <div class="w-full flex justify-center items-center">
+        <div class="loader"></div>
+      </div>
+    </ng-container>
+
+    <!--Posts  available -->
+    <ng-container *ngIf="(posts$ | async)?.length">
+      <ng-container *ngFor="let post of posts$ | async">
+        <app-card [post]="post"></app-card>
+      </ng-container>
+    </ng-container>
   </div>
-  <div class="w-full grid grid-cols-2">
-    <app-card/>
-    <app-card/>
-    <app-card/>
-    <app-card/>
-    <app-card/>
-    <app-card/>
-  </div>
-  <div class="w-full flex justify-between">
-    <div
-      class="border-2 border-slate-200 hover:border-indigo-300 cursor-pointer flex gap-2 items-center p-1 text-sm rounded-lg m-4 group">
-      <div class="w-2 h-2 border-2 border-indigo-500/60 bg-white animate-pulse rounded-md ml-5"></div>
-      <p class="mx-1 font-medium text-slate-500">Load more</p>
-      <button
-        class="p-2 px-6 bg-slate-200 group-hover:bg-indigo-500 group-hover:text-white font-medium text-indigo-400 rounded-md flex items-center justify-center">
-            <span class="material-symbols-outlined text-sm">
-              arrow_forward_ios
-            </span>
-      </button>
-    </div>
-  </div>
+  <app-subscribe/>
 </section>
